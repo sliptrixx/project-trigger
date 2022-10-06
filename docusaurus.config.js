@@ -8,16 +8,18 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Project Tigger',
   tagline: 'A Space Shooter Project by Digipen',
-  url: 'https://github.com/sliptrixx/project-trigger/',
-  baseUrl: '/',
+  url: 'https://sliptrixx.github.io',
+  baseUrl: '/project-trigger/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/DP_Red.ico',
+  trailingSlash: false,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'DigiPen', // Usually your GitHub org/user name.
+  organizationName: 'sliptrixx', // Usually your GitHub org/user name.
   projectName: 'project-trigger', // Usually your repo name.
+  deploymentBranch: 'gh-pages',
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
