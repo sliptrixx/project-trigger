@@ -7,6 +7,13 @@ public class PlayerControls : MonoBehaviour
 	[Tooltip("The speed at which the player ship moves")]
 	public float Speed = 3;
 
+	private Blaster blaster;
+
+	private void Start()
+	{
+		blaster = GetComponent<Blaster>();
+	}
+
 	void Update()
 	{
 		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -17,6 +24,11 @@ public class PlayerControls : MonoBehaviour
 		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
 		{
 			transform.position -= Vector3.right * Speed * Time.deltaTime;
+		}
+
+		if(Input.GetMouseButtonDown(0))
+		{
+			blaster.Shoot();
 		}
 	}
 }
