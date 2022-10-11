@@ -8,3 +8,4 @@ Hi, and thanks for checking out Project Trigger. This tutorial will walk you thr
 ## Available Modules
 - [Create a Player](/Tutorials/1_player_movement.md) - Simple player movement controls
 - [Projectiles](/Tutorials/2_projectile.md) - Create a projectile that can move in the direction its facing
+- [Player Shoot](/Tutorials/3_player_shoot.md) - Create a weapon that can shoot projectiles
