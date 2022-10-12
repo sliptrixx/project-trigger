@@ -13,7 +13,8 @@ public class Projectile : MonoBehaviour
 	// how much distance has the projectile travelled?
 	float distanceTravelled = 0;
 
-	private void Update()
+	// called every frame
+	void Update()
 	{
 		// move it in the direction the object is looking at factored by speed
 		transform.position += transform.up * (Speed * Time.deltaTime);
@@ -27,5 +28,20 @@ public class Projectile : MonoBehaviour
 			Destroy(gameObject);
 		}
 
+	}
+
+	// called when the projectile has a collision
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		// if the object that the projectile collided with has a health component to it,
+		// then we apply damage
+		var health = collision.GetComponent<Health>();
+		if(health is not null)
+		{
+			health.ApplyDamage(1);
+
+			// additionally we destroy the projectile.
+			Destroy(gameObject); 
+		}
 	}
 }
