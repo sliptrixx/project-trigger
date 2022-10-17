@@ -47,11 +47,11 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		// move the player in the expected direction
-		Vector3 move = MoveRight ? Vector3.right : -Vector3.right;
+		Vector3 move = MoveRight ? transform.right : -transform.right;
 		transform.position += move * Time.deltaTime * moveSpeed;
 
 		// do the check to toggle the direction once they have travelled pass the bounds
-		if ((MoveRight && transform.position.x > anchor.x + WiggleRoom / 2) || (!MoveRight && transform.position.x < anchor.x - WiggleRoom / 2))
+		if (Vector3.Distance(anchor, transform.position) > WiggleRoom / 2)
 		{
 			MoveRight = !MoveRight;
 		}
