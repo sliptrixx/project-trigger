@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7093231161718447743}
   - component: {fileID: 7093231161718447742}
+  - component: {fileID: 7093231161718447488}
+  - component: {fileID: 7093231161718447491}
   - component: {fileID: 7093231161718447740}
   - component: {fileID: 7093231161718447741}
   - component: {fileID: 7093231161718447490}
-  - component: {fileID: 7093231161718447488}
-  - component: {fileID: 7093231161718447491}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -89,46 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7093231161718447740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093231161718447737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d8af34f85d11f8428b9293c7b7a8e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Offset: {x: 0, y: 1}
-  ProjectilePrefab: {fileID: 8420151237180003447, guid: 544e32228868b9949a0ac2cc07366f81, type: 3}
---- !u!114 &7093231161718447741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093231161718447737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33345e291685139489048122799b58f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireRate: 2
---- !u!114 &7093231161718447490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093231161718447737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f2cd82042179694982578a7e28cb2d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 3
 --- !u!58 &7093231161718447488
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -166,3 +126,46 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7093231161718447740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093231161718447737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8af34f85d11f8428b9293c7b7a8e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {x: 0, y: 1}
+  ProjectilePrefab: {fileID: 8420151237180003447, guid: 544e32228868b9949a0ac2cc07366f81, type: 3}
+--- !u!114 &7093231161718447741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093231161718447737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33345e291685139489048122799b58f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 2
+  moveSpeed: 2
+  WiggleRoom: 3
+  MoveRight: 1
+--- !u!114 &7093231161718447490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093231161718447737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2cd82042179694982578a7e28cb2d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 3
