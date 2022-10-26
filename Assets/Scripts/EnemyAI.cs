@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
 		anchor = transform.position;
 	}
 
-	private void Update()
+	void Update()
 	{
 		// elapse the start wait time if it hasn't elapsed
 		if(startWaitTime > 0)
@@ -64,5 +64,12 @@ public class EnemyAI : MonoBehaviour
 		{
 			MoveRight = !MoveRight;
 		}
+	}
+
+	void OnDestroy()
+	{
+		// get a reference to the stage manager and report that this enemy was destroyed
+		var stageManger = FindObjectOfType<StageManager>();
+		stageManger.ReportEnemyDeath();
 	}
 }
