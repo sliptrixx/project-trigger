@@ -70,6 +70,6 @@ public class EnemyAI : MonoBehaviour
 	{
 		// get a reference to the stage manager and report that this enemy was destroyed
 		var stageManger = FindObjectOfType<StageManager>();
-		stageManger.ReportEnemyDeath();
+		stageManger?.ReportEnemyDeath();
 	}
 }

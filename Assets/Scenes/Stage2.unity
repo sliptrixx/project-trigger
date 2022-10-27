@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447741, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447741, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: moveSpeed
@@ -203,13 +203,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7093231161718447490, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
+      propertyPath: hp
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447737, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: m_Name
       value: enemy (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447741, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: fireRate
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447742, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: m_Sprite
@@ -268,13 +272,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7093231161718447490, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
+      propertyPath: hp
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447737, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: m_Name
       value: enemy (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447741, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: fireRate
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7093231161718447741, guid: 49c16d6510d097449bcd5a220437e8f5, type: 3}
       propertyPath: MoveRight

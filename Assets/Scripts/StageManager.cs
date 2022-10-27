@@ -34,7 +34,6 @@ public class StageManager : MonoBehaviour
 		asyncLoad.completed += (AsyncOperation op) => 
 		{
 			enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
-			Debug.Log(enemiesLeft);
 		};
 	}
 
