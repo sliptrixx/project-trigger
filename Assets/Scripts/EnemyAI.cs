@@ -6,6 +6,9 @@ public class EnemyAI : MonoBehaviour
 	[Tooltip("How frequently should the enemy fire a projectile (given in seconds)")]
 	[SerializeField] protected float fireRate = 1;
 
+	[Tooltip("How much time to wait before firing")]
+	[SerializeField] protected float startWaitTime = 0;
+
 	[Header("Simple movement")]
 	[Tooltip("How fast should the enemy travel in terms units/seconds")]
 	[SerializeField] protected float moveSpeed = 1;
@@ -34,13 +37,19 @@ public class EnemyAI : MonoBehaviour
 		anchor = transform.position;
 	}
 
-	private void Update()
+	void Update()
 	{
+		// elapse the start wait time if it hasn't elapsed
+		if(startWaitTime > 0)
+		{
+			startWaitTime -= Time.deltaTime;
+		}
+
 		// increment the timer
 		fireTimer += Time.deltaTime;
 
 		// if the timer has elapsed, shoot from the blaster and reset the timer
-		if(fireTimer >= fireRate)
+		if(fireTimer >= fireRate && startWaitTime <= 0)
 		{
 			blaster.Shoot();
 			fireTimer = 0;
@@ -55,5 +64,12 @@ public class EnemyAI : MonoBehaviour
 		{
 			MoveRight = !MoveRight;
 		}
+	}
+
+	void OnDestroy()
+	{
+		// get a reference to the stage manager and report that this enemy was destroyed
+		var stageManger = FindObjectOfType<StageManager>();
+		stageManger?.ReportEnemyDeath();
 	}
 }
