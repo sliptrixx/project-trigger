@@ -25,6 +25,10 @@ public class StageManager : MonoBehaviour
 				LoadEnemyScene(scenes[currentSceneID]);
 			}
 			currentSceneID++;
+
+			// Request the UI manager to show the stage text UI
+			var uiManager = GetComponent<UIManager>();
+			uiManager?.RequestStageUI(currentSceneID, 3.0f);
 		}
 	}
 
