@@ -28,7 +28,14 @@ public class StageManager : MonoBehaviour
 
 			// Request the UI manager to show the stage text UI
 			var uiManager = GetComponent<UIManager>();
-			uiManager?.RequestStageUI(currentSceneID, 3.0f);
+			if (currentSceneID <= scenes.Count)
+			{
+				uiManager?.RequestStageUI(currentSceneID, 3.0f);
+			}
+			else
+			{
+				uiManager?.OpenGameCompleteMenu();
+			}
 		}
 	}
 
@@ -45,5 +52,11 @@ public class StageManager : MonoBehaviour
 	public void ReportEnemyDeath()
 	{
 		enemiesLeft--;
+	}
+
+	// Restart the game
+	public void Restart()
+	{
+		SceneManager.LoadScene("CoreGameplay");
 	}
 }

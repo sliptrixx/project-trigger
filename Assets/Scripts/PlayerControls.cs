@@ -31,4 +31,10 @@ public class PlayerControls : MonoBehaviour
 			blaster.Shoot();
 		}
 	}
+
+	private void OnDestroy()
+	{
+		var uiManager = FindObjectOfType<UIManager>();
+		uiManager?.OpenGameOverMenu();
+	}
 }

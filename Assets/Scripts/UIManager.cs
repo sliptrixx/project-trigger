@@ -15,6 +15,12 @@ public class UIManager : MonoBehaviour
 	[Tooltip("The UI text that displays the current stage the player is playing")]
 	[SerializeField] TMP_Text StageUI;
 
+	[Tooltip("The game over UI element that appears when the player dies")]
+	[SerializeField] GameObject GameOverScreen;
+
+	[Tooltip("The game complete UI element that appears when the player completes all stages")]
+	[SerializeField] GameObject GameCompleteScreen;
+
 	// time to show the stage UI
 	float stageUITimer = 0;
 
@@ -44,5 +50,17 @@ public class UIManager : MonoBehaviour
 		StageUI.text = $"Stage {stagenumber}";
 		StageUI.gameObject.SetActive(true);
 		stageUITimer = time;
+	}
+
+	// Open the game over Menu
+	public void OpenGameOverMenu()
+	{
+		GameOverScreen.SetActive(true);
+	}
+
+	// Open the game complete menu
+	public void OpenGameCompleteMenu()
+	{
+		GameCompleteScreen.SetActive(true);
 	}
 }
