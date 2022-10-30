@@ -2,6 +2,9 @@
 sidebar_position: 6
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Tutorial: Basic Enemy
 In this section we will go over how we can create a basic enemy that can move left and right and shoot bullets at a constant rate. We will reuse a lot of code we have written in the previous sections and learn how powerful modular single responsibility code can be.
 
@@ -123,8 +126,29 @@ void Update()
 
 Now we test this feature in the game and see if the enemy is moving left to right and right to left. Try changing and experimenting with the exposed values in the inspector and see how it affects the game.
 
-### Final Script
+## Bonus 
+### Orientation Agnostic Movement
+The enemy moves left and right, but there's an issue. Try rotating the player and see what happens. The enemy will continue moving left and right in the world space and not in respect to its orientation. If that's your desired behavior, then you can skip this section. However, if you want the enemy to move left and right in respect to its orientation, then keep reading.
+
+We can solve this by using the local transform right vector instead of the world space right vector. And for the condition to switch direction of travel, we can calculate the distance between the enemy's current position and the anchor position and compare it to the wiggle room.
+
+```csharp
+// the direction to move
+Vector3 direction = (MoveRight) ? transform.right : -transform.right;
+transform.position += direction * moveSpeed * Time.deltaTime;
+
+// switch direction of travel once the enemy has reached the edge of the wiggle room
+if(Vector3.Distance(anchor, transform.position) > WiggleRoom / 2) 
+{
+    MoveRight = !MoveRight;
+}
+```
+
+## Final Script
 Here is the final script for the `EnemyAI` component.
+
+<Tabs>
+<TabItem value="Regular">
 
 ```csharp
 using UnityEngine;
@@ -188,23 +212,73 @@ public class EnemyAI : MonoBehaviour
 }
 ```
 
-## Bonus 
-### Orientation Agnostic Movement
-The enemy moves left and right, but there's an issue. Try rotating the player and see what happens. The enemy will continue moving left and right in the world space and not in respect to its orientation. If that's your desired behavior, then you can skip this section. However, if you want the enemy to move left and right in respect to its orientation, then keep reading.
-
-We can solve this by using the local transform right vector instead of the world space right vector. And for the condition to switch direction of travel, we can calculate the distance between the enemy's current position and the anchor position and compare it to the wiggle room.
+</TabItem>
+<TabItem value="Orientation Agnostic">
 
 ```csharp
-// the direction to move
-Vector3 direction = (MoveRight) ? transform.right : -transform.right;
-transform.position += direction * moveSpeed * Time.deltaTime;
+using UnityEngine;
 
-// switch direction of travel once the enemy has reached the edge of the wiggle room
-if(Vector3.Distance(anchor, transform.position) > WiggleRoom / 2) 
+[RequireComponent(typeof(Blaster))]
+public class EnemyAI : MonoBehaviour
 {
-    MoveRight = !MoveRight;
+	[Tooltip("How frequently should the enemy fire a projectile (given in seconds)")]
+	[SerializeField] protected float fireRate = 1;
+
+	[Header("Simple movement")]
+	[Tooltip("How fast should the enemy travel in terms units/seconds")]
+	[SerializeField] protected float moveSpeed = 1;
+
+	[Tooltip("How far should the the enemy move")]
+	[SerializeField] protected float WiggleRoom = 1;
+
+	[Tooltip("The direction in which the enemy AI should currently move")]
+	[SerializeField] protected bool MoveRight = true;
+
+	// A private reference to the blaster that the enemy can shoot from
+	protected Blaster blaster;
+
+	// this variable is used to track how many seconds have elapsed since last fired
+	protected float fireTimer = 0;
+
+	// the position that anchor's the enemy
+	protected Vector3 anchor;
+
+	void Start()
+	{
+		// since we are using the RequireComponent attribute, we are guaranteed to have a blaster
+		blaster = GetComponent<Blaster>();
+
+		// set the anchor position so that the enemy can move left and right relative to it
+		anchor = transform.position;
+	}
+
+	private void Update()
+	{
+		// increment the timer
+		fireTimer += Time.deltaTime;
+
+		// if the timer has elapsed, shoot from the blaster and reset the timer
+		if(fireTimer >= fireRate)
+		{
+			blaster.Shoot();
+			fireTimer = 0;
+		}
+
+		// move the player in the expected direction
+		Vector3 move = MoveRight ? transform.right : -transform.right;
+		transform.position += move * Time.deltaTime * moveSpeed;
+
+		// do the check to toggle the direction once they have travelled pass the bounds
+		if (Vector3.Distance(anchor, transform.position) > WiggleRoom / 2)
+		{
+			MoveRight = !MoveRight;
+		}
+	}
 }
 ```
+
+</TabItem>
+</Tabs>
 
 ## Final Thoughts
 In this tutorial, we learned how to create a very simple enemy AI that uses a blaster to shoot at the player at a constant fire rate while moving left and right. It's a very much possible to split this script into multiple components, say seperating the movement and the shooting functionality. However, for the sake of simplicity, I decided to keep it all in one script.
