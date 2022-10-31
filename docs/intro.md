@@ -16,3 +16,4 @@ Hi, and thanks for checking out Project Trigger. This tutorial will walk you thr
 - [Health](/Tutorials/5_health.md) - Add health to a GameObject and destroy it when health reaches 0
 - [Basic Enemy](/Tutorials/6_basic_enemy.md) - Enemy that can move left and right and shoot bullets at a constant rate
 - [Stages](/Tutorials/7_stages.md) - Create a stage system that can load different levels
+- [HUD](/Tutorials/8_hud.md) - A look into creating UI elements in Unity
