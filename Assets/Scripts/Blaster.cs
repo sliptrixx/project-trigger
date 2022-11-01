@@ -10,6 +10,14 @@ public class Blaster : MonoBehaviour
 	[Tooltip("A reference to the projectile prefab that will be used to instantiate projectiles")]
 	[SerializeField] protected GameObject ProjectilePrefab;
 
+	[Tooltip("The audio source that can play the projectile fire audio")]
+	protected AudioSource audioSource = null;
+
+	void Start()
+	{
+		audioSource = GetComponent<AudioSource>();
+	}
+
 	// Shoot a projectile from the blaster position
 	public void Shoot()
 	{
@@ -17,5 +25,11 @@ public class Blaster : MonoBehaviour
 		// then spawn a projectile from that position with the current rotation of the blaster
 		var pos = transform.position + Offset.x * transform.right + Offset.y * transform.up;
 		Instantiate(ProjectilePrefab, pos, transform.rotation);
+
+		// play the projectile fire audio
+		if(audioSource)
+		{
+			audioSource.Play();
+		}
 	}
 }
