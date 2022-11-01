@@ -15,6 +15,11 @@ public class Health : MonoBehaviour
 		// if the health drops below zero destroy the object
 		if (hp <= 0)
 		{
+			// play the explosion sound effect before destroying the object
+			var audioManager = FindObjectOfType<AudioManager>();
+			audioManager?.PlayExplosion(transform.position);
+
+			// destroy the object
 			Destroy(gameObject);
 		}
 	}
