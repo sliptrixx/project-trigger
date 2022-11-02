@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 # Tutorial Intro
 Hi, and thanks for checking out Project Trigger. This tutorial will walk you through the basics of building a simple 2D shooter game in Unity. Although this tutorial is written for Unity, the concepts are applicable to any game engine. The tutorial uses "space" assets from [Kenney.nl](https://kenney.nl/), so is themed as a space shooter. However, feel free to experiment with custom assets and themes.
 
-## Available Modules
+## Basic Modules
 - [Create a Player](/Tutorials/1_player_movement.md) - Simple player movement controls
 - [Projectiles](/Tutorials/2_projectile.md) - Create a projectile that can move in the direction its facing
 - [Player Shoot](/Tutorials/3_player_shoot.md) - Create a weapon that can shoot projectiles
@@ -17,3 +17,4 @@ Hi, and thanks for checking out Project Trigger. This tutorial will walk you thr
 - [Basic Enemy](/Tutorials/6_basic_enemy.md) - Enemy that can move left and right and shoot bullets at a constant rate
 - [Stages](/Tutorials/7_stages.md) - Create a stage system that can load different levels
 - [HUD](/Tutorials/8_hud.md) - A look into creating UI elements in Unity
+- [Audio](/Tutorials/9_audio.md) - Add sound effects
