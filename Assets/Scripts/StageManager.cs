@@ -36,6 +36,10 @@ public class StageManager : MonoBehaviour
 			{
 				uiManager?.OpenGameCompleteMenu();
 			}
+
+			// Also let the score manager to give the bonus for the current stage
+			var scoreManager = GetComponent<ScoreManager>();
+			scoreManager?.IndicateNewStage();
 		}
 	}
 

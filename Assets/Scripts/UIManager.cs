@@ -15,6 +15,9 @@ public class UIManager : MonoBehaviour
 	[Tooltip("The UI text that displays the current stage the player is playing")]
 	[SerializeField] TMP_Text StageUI;
 
+	[Tooltip("The UI text that displays the score")]
+	[SerializeField] TMP_Text ScoreUI;
+
 	[Tooltip("The game over UI element that appears when the player dies")]
 	[SerializeField] GameObject GameOverScreen;
 
@@ -62,5 +65,11 @@ public class UIManager : MonoBehaviour
 	public void OpenGameCompleteMenu()
 	{
 		GameCompleteScreen.SetActive(true);
+	}
+
+	// Set the score with an optional score that was added
+	public void SetScore(int newScore, int? scoreAdded = null)
+	{
+		ScoreUI.text = $"Score: {newScore}";
 	}
 }
