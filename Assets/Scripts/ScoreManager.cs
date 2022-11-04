@@ -35,7 +35,7 @@ public class ScoreManager : MonoBehaviour
 	public void AddScore(float scoreToAdd)
 	{
 		score += scoreToAdd;
-		uiManager.SetScore(Mathf.FloorToInt(score), Mathf.FloorToInt(scoreToAdd));
+		uiManager.SetScore(Mathf.CeilToInt(score), Mathf.CeilToInt(scoreToAdd));
 	}
 
 	// Indicate to the score manager, that the game switched to a new stage
@@ -52,5 +52,23 @@ public class ScoreManager : MonoBehaviour
 
 		// reset the score
 		bonus = bonusToGive;
+	}
+
+	// Update the highscore information
+	public void CheckAndUpdateHighscore()
+	{
+		// Get the highscore from the player prefs
+		int highscore = PlayerPrefs.GetInt("highscore", 0);
+
+		// if the current score is greater that the high score, update it on the UI
+		if(score > highscore)
+		{
+			PlayerPrefs.SetInt("highscore", Mathf.CeilToInt(score));
+			uiManager?.ReportHighscore(Mathf.CeilToInt(score), isNew: true);
+			return;
+		}
+
+		// not a new highscore, but we still have to report it to the UIManager
+		uiManager?.ReportHighscore(highscore, isNew: false);
 	}
 }

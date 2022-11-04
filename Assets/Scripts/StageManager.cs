@@ -26,6 +26,10 @@ public class StageManager : MonoBehaviour
 			}
 			currentSceneID++;
 
+			// Let the score manager to give the bonus for the current stage
+			var scoreManager = GetComponent<ScoreManager>();
+			scoreManager?.IndicateNewStage();
+
 			// Request the UI manager to show the stage text UI
 			var uiManager = GetComponent<UIManager>();
 			if (currentSceneID <= scenes.Count)
@@ -34,12 +38,9 @@ public class StageManager : MonoBehaviour
 			}
 			else
 			{
+				scoreManager?.CheckAndUpdateHighscore();
 				uiManager?.OpenGameCompleteMenu();
 			}
-
-			// Also let the score manager to give the bonus for the current stage
-			var scoreManager = GetComponent<ScoreManager>();
-			scoreManager?.IndicateNewStage();
 		}
 	}
 

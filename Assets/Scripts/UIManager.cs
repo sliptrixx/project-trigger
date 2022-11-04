@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
 	[Tooltip("The UI text that displays the score")]
 	[SerializeField] TMP_Text ScoreUI;
 
+	[Tooltip("The UI text that displays the highscore")]
+	[SerializeField] TMP_Text[] HighscoreUIs;
+
 	[Tooltip("The game over UI element that appears when the player dies")]
 	[SerializeField] GameObject GameOverScreen;
 
@@ -71,5 +74,22 @@ public class UIManager : MonoBehaviour
 	public void SetScore(int newScore, int? scoreAdded = null)
 	{
 		ScoreUI.text = $"Score: {newScore}";
+	}
+
+	public void ReportHighscore(int highscore, bool isNew)
+	{
+		// Build the highscore string
+		string text = "";
+		if(isNew)
+		{
+			text += "New Highscore!!!\n";
+		}
+		text += $"Highscore: {highscore}";
+
+		// Set the high score in all highscore ui elements
+		foreach(var highscoreUI in HighscoreUIs)
+		{
+			highscoreUI.text = text;
+		}
 	}
 }
