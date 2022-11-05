@@ -35,6 +35,9 @@ public class PlayerControls : MonoBehaviour
 	private void OnDestroy()
 	{
 		var uiManager = FindObjectOfType<UIManager>();
+		var scoreManager = FindObjectOfType<ScoreManager>();
+
+		scoreManager?.CheckAndUpdateHighscore();
 		uiManager?.OpenGameOverMenu();
 	}
 }

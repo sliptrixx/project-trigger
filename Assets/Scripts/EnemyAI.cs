@@ -71,5 +71,9 @@ public class EnemyAI : MonoBehaviour
 		// get a reference to the stage manager and report that this enemy was destroyed
 		var stageManger = FindObjectOfType<StageManager>();
 		stageManger?.ReportEnemyDeath();
+
+		// get a reference to the score manager and give the player a score of +50
+		var scoreManager = FindObjectOfType<ScoreManager>();
+		scoreManager?.AddScore(50);
 	}
 }
