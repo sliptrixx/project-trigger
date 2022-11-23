@@ -8,6 +8,8 @@
 [Uu]ser[Ss]ettings/
 Assets/AssetStoreTools*
 Assets/Editor*
+Assets/Models*
+[Ss]creen[Ss]hots/
 
 # Visual Studio cache directory
 .vs/
