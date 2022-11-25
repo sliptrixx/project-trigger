@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoundsCheck : MonoBehaviour
@@ -16,17 +14,13 @@ public class BoundsCheck : MonoBehaviour
 
 	void LateUpdate()
 	{
-		var position = transform.position;
+		var pos = transform.position;
 
-		// if past the bounds on the horizontal axis, fix it
-		if(position.x < bottomLeft.x) { position.x = bottomLeft.x; }
-		else if(position.x > topRight.x) { position.x = topRight.x; }
-
-		// if past the bounds on the vertical axis, fix it
-		if(position.y < bottomLeft.y) { position.y = bottomLeft.y; }
-		else if(position.y > topRight.y) { position.y = topRight.y; }
+		// if past the bounds on the horizontal or vertical axis, fix it
+		pos.x = Mathf.Clamp(pos.x, bottomLeft.x, topRight.x);
+		pos.y = Mathf.Clamp(pos.y, bottomLeft.y, topRight.y);
 
 		// apply the position
-		if(position != transform.position) { transform.position = position; }
+		transform.position = pos;
 	}
 }
