@@ -23,3 +23,4 @@ Hi, and thanks for checking out Project Trigger. This tutorial will walk you thr
 - [Score](/Advanced%20Tutorials/10_scores.md) - Add a score system + high score with persistent data
 - [SpriteSheet](/Advanced%20Tutorials/11_spritesheet.md) - 2D spritesheet animations
 - [Bound](/Advanced%20Tutorials/12_bounds.md) - Create a boundary that objects can't cross
+- [ScreenShake](/Advanced%20Tutorials/13_ScreenShake.md) - Add a screen shake effect
