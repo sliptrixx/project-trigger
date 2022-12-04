@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
@@ -15,9 +13,6 @@ public class CameraShake : MonoBehaviour
 
 	// the origin where the object starts
 	Vector3 origin;
-
-	// the offset to apply to the origin to make the camera shake happen
-	Vector3 offset;
 
 	// flip flop tracker
 	bool moveRight = false;
