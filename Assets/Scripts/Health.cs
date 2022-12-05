@@ -3,6 +3,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
 	[SerializeField] protected int hp = 1;
+	[SerializeField] protected GameObject ExplosionVFX = null;
 
 	CameraShake cameraShake = null;
 
@@ -28,6 +29,13 @@ public class Health : MonoBehaviour
 
 			// Apply a larger camera shake when the enemy is killed
 			cameraShake.Shake(0.4f, 0.4f);
+
+			// Spawn the explosion effect if available
+			if(ExplosionVFX)
+			{
+				// the explosion effect has a self destruct which will handle destroying itself
+				Instantiate(ExplosionVFX, transform.position, Quaternion.identity);
+			}
 
 			// destroy the object
 			Destroy(gameObject);

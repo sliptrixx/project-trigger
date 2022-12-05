@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 3
+  ExplosionVFX: {fileID: 4732925737234128762, guid: a1580671325eaf740982a30b9ddf660f, type: 3}
 --- !u!82 &1895651592982549473
 AudioSource:
   m_ObjectHideFlags: 0
