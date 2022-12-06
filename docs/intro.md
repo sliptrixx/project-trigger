@@ -24,3 +24,4 @@ Hi, and thanks for checking out Project Trigger. This tutorial will walk you thr
 - [SpriteSheet](/Advanced%20Tutorials/11_spritesheet.md) - 2D spritesheet animations
 - [Bound](/Advanced%20Tutorials/12_bounds.md) - Create a boundary that objects can't cross
 - [ScreenShake](/Advanced%20Tutorials/13_ScreenShake.md) - Add a screen shake effect
+- [ParticleEffects](/Advanced%20Tutorials/14_ParticleEffects.md) - Add an explosion effect using the particle system
