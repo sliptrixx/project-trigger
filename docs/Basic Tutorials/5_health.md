@@ -21,6 +21,18 @@ By making the `hp` variable `protected`, we are preventing other scripts from di
 
 Forcing the use of the `ApplyDamage` function also allows us to add more functionality to the `ApplyDamage` function in the future. For example, we can log the damage taken, play a sound effect when the object is damaged, or even prevent the object from being damaged if it is in an invulnerable state.
 
+<br></br>
+
+```csharp
+// Get the health from the health component
+public int GetHP() 
+{
+	return hp;
+}
+```
+
+With the `hp` variable being protected we must create a public function called `GetHP` that can be used by other scripts to get the current health points of a GameObject. This is not the only way to do this and there's a better way to do it. In C#, we can use properties to make a variable accessible to other scripts but not allow them to modify it. You can learn more about it from [here](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties).
+
 ### Additional Functionality
 Now, we can add some additional functionality to the `ApplyDamage` function to destroy the GameObject if the `hp` variable is less than or equal to 0. I would like to say that there are many ways to do this, like, checking if the `hp` variable is leas than or equal to 0 in the `Update` function, and this is just one way of doing it.
 

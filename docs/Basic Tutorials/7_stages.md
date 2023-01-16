@@ -131,7 +131,7 @@ void Update()
     if(enemiesLeft == 0 && currentSceneID < scenes.Count)
     {
         enemiesLeft = -1;
-        LoadEnemyScene(scenes[currentScenID]);
+        LoadEnemyScene(scenes[currentSceneID]);
         currentSceneID++;
     }
 }
