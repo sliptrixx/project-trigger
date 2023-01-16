@@ -12,7 +12,7 @@ Hi, and thanks for checking out Project Trigger. This tutorial will walk you thr
 - [Create a Player](/Basic%20Tutorials/1_player_movement.md) - Simple player movement controls
 - [Projectiles](/Basic%20Tutorials/2_projectile.md) - Create a projectile that can move in the direction its facing
 - [Player Shoot](/Basic%20Tutorials/3_player_shoot.md) - Create a weapon that can shoot projectiles
-- [Projectile Collision](/Basic%20Tutorials/4_collision_detection.md) - Modify projectile that collide with other objects and destroy it
+- [Projectile Collision](/Basic%20Tutorials/4_collision_detection.md) - Modify projectile that collides with other objects and destroys it
 - [Health](/Basic%20Tutorials/5_health.md) - Add health to a GameObject and destroy it when health reaches 0
 - [Basic Enemy](/Basic%20Tutorials/6_basic_enemy.md) - Enemy that can move left and right and shoot bullets at a constant rate
 - [Stages](/Basic%20Tutorials/7_stages.md) - Create a stage system that can load different levels

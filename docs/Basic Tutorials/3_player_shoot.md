@@ -3,10 +3,10 @@ sidebar_position: 3
 ---
 
 # Tutorial: Player Shoot
-In this section we will learn how to create new scripts and modify existing scripts to allow the player to shoot projectiles created in the last section.
+In this section, we will learn how to create new scripts and modify existing scripts to allow the player to shoot projectiles created in the last section.
 
 ## Prefabs
-In Unity, a prefab is a template for a GameObject aand is useful for creating multiple instances of the same object. For example, if we want projectiles to be dynamically created when the player shoots, we can create a prefab for the projectile and use it as the base for all projectiles spawned by the player.
+In Unity, a prefab is a template for a GameObject and is useful for creating multiple instances of the same object. For example, if we want projectiles to be dynamically created when the player shoots, we can create a prefab for the projectile and use it as the base for all projectiles spawned by the player.
 
 ### Creating a Prefab
 It's very easy to create a prefab in Unity. Simply drag and drop a GameObject that needs to be a prefab into the Project Window and Unity will automatically convert the GameObject into a prefab.
@@ -18,7 +18,7 @@ It's very easy to create a prefab in Unity. Simply drag and drop a GameObject th
 ### Using a Prefab
 We can use a prefab in the scene by dragging and dropping the prefab from the project window into the hierarchy window, and Unity will create a new instance of the prefab in the scene. Try adding multiple instances of the projectile prefab to the scene and modify the sprite in the prefab to see how it affects all instances of the prefab.
 
-Another use case for prefabs is to use it as a template for dynamic creation of object. Just like how we can set properties such as `Speed` and `MaxDistance` on a projectile, we can pass in reference to a prefab to a script and use it to create new instances of the prefab.
+Another use case for a prefab is to use it as a template for the dynamic creation of an object. Just like how we can set properties such as `Speed` and `MaxDistance` on a projectile, we can pass in a reference to a prefab to a script and use it to create new instances of the prefab.
 
 
 ## Blaster.cs
@@ -32,7 +32,7 @@ If we have a reference to a GameObject prefab, we can use Unity's `Instantiate` 
 GameObject prefab;
 GameObject instance = Instantiate(prefab);
 
-// to create a new instance and set it's position and rotation
+// to create a new instance and set its position and rotation
 Vector3 position;
 Quaternion rotation;
 GameObject instance = Instantiate(prefab, position, rotation);
@@ -53,7 +53,7 @@ public void Shoot()
 ### Detecting Input
 We will now modify the `PlayerControls.cs` script to detect when the player presses the primary mouse button and call the `Shoot` function on the `Blaster` component. 
 
-For that, first we need to add a reference to the `Blaster` component in the `PlayerControls` script. There are two ways to do this:
+For that, first, we need to add a reference to the `Blaster` component in the `PlayerControls` script. There are two ways to do this:
 - Add a serialized field for the `Blaster` component and drag and drop the `Blaster` component from the hierarchy window into the field in the inspector
 - (or) Find the `Blaster` component in the same GameObject as the `PlayerControls` component using the `GetComponent` function
 
@@ -77,9 +77,9 @@ if(Input.GetMouseButtonDown(0))
 ```
 
 #### Why are we doing it this way?
-We don't necessarily need to create a new script for the blaster and could have just added the `Shoot` function to the player script. However, it's a good practice to seperate the logic for different components of a GameObject into different scripts. This makes managing the code easier and allows us to reuse the code in other scripts.
+We don't necessarily need to create a new script for the blaster and could have just added the `Shoot` function to the player script. However, it's a good practice to separate the logic for different components of a GameObject into different scripts. This makes managing the code easier and allows us to reuse the code in other scripts.
 
-For example, The Enemies! We can create an enemy that can shoot projectiles by adding a Blaster component to the enemy GameObject. Obviously, we still need to create a "Enemy Brain" script to determine when to call the shoot function, but we can reuse the `Shoot` function in the Blaster script.
+For example, The Enemies! We can create an enemy that can shoot projectiles by adding a Blaster component to the Enemy GameObject. Obviously, we still need to create an "Enemy Brain" script to determine when to call the shoot function, but we can reuse the `Shoot` function in the Blaster script.
 
 ### Testing the Blaster
 Now that we have a blaster that can create projectiles, let's test it out. Press play and try shooting projectiles by pressing the primary mouse button. You should see projectiles being created at the player's position.
@@ -93,7 +93,7 @@ If you are getting an error, make sure that you have a reference to the `Project
 ### Blaster Offset
 The projectiles are being created at the player's position, aka, the center of the player, which is not where the projectile must be fired from. We can add an offset to the projectile's spawn position to fix this issue.
 
-To do this, we will add a new serialized Vector2 called `Offset` to the `Blaster` component and use that to adjust the spawn position of the projectile. The "offset" has to be applied in the direction of the player's rotation, so we will use the `Transform.right` property to modify the horizontal component of the offset and `Transform.up` property to modify the vertical component of the offset.
+To do this, we will add a new serialized Vector2 called `Offset` to the `Blaster` component and use that to adjust the spawn position of the projectile. The "offset" has to be applied in the direction of the player's rotation, so we will use the `Transform.right` property to modify the horizontal component of the offset and the `Transform.up` property to modify the vertical component of the offset.
 
 ```csharp
 [SerializeField] Vector2 offset;
@@ -118,33 +118,33 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-	[Tooltip("The speed at which the player ship moves")]
-	public float Speed = 3;
+    [Tooltip("The speed at which the player ship moves")]
+    public float Speed = 3;
 
-	Blaster blaster;
+    Blaster blaster;
 
-	private void Start()
-	{
-		blaster = GetComponent<Blaster>();
-	}
+    private void Start()
+    {
+        blaster = GetComponent<Blaster>();
+    }
 
-	void Update()
-	{
-		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-		{
-			transform.position += Vector3.right * Speed * Time.deltaTime;
-		}
+    void Update()
+    {
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.position += Vector3.right * Speed * Time.deltaTime;
+        }
 
-		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-		{
-			transform.position -= Vector3.right * Speed * Time.deltaTime;
-		}
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.position -= Vector3.right * Speed * Time.deltaTime;
+        }
 
-		if(Input.GetMouseButtonDown(0))
-		{
-			blaster.Shoot();
-		}
-	}
+        if(Input.GetMouseButtonDown(0))
+        {
+            blaster.Shoot();
+        }
+    }
 }
 ```
 
@@ -154,19 +154,19 @@ using UnityEngine;
 
 public class Blaster : MonoBehaviour
 {
-	[Tooltip("Additional offset from the source transform from where the projectile is spawned")]
-	[SerializeField] Vector2 Offset;
+    [Tooltip("Additional offset from the source transform from where the projectile is spawned")]
+    [SerializeField] Vector2 Offset;
 
-	[Tooltip("A reference to the projectile prefab that will be used to instantiate projectiles")]
-	[SerializeField] GameObject ProjectilePrefab;
+    [Tooltip("A reference to the projectile prefab that will be used to instantiate projectiles")]
+    [SerializeField] GameObject ProjectilePrefab;
 
-	// Shoot a projectile from the blaster position
-	public void Shoot()
-	{
-		// apply an offset along the direction at which the blaster is looking at,
-		// then spawn a projectile from that position with the current rotation of the blaster
-		var pos = transform.position + Offset.x * transform.right + Offset.y * transform.up;
-		Instantiate(ProjectilePrefab, pos, transform.rotation);
-	}
+    // Shoot a projectile from the blaster position
+    public void Shoot()
+    {
+        // apply an offset along the direction in which the blaster is looking at,
+        // then spawn a projectile from that position with the current rotation of the blaster
+        var pos = transform.position + Offset.x * transform.right + Offset.y * transform.up;
+        Instantiate(ProjectilePrefab, pos, transform.rotation);
+    }
 }
 ```

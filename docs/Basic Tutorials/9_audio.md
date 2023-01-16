@@ -6,12 +6,12 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # Tutorial: Audio
-In this tutorial, we will be adding audio to our game to make it more immersive. We will start simple by adding two sound effects to our game: one for when a blaster shoots and one for when an enemy is destroyed. We will go over two different implementations and you can choose which one you prefer.
+In this tutorial, we will be adding audio to our game to make it more immersive. We will start simply by adding two sound effects to our game: one for when a blaster shoots and one for when an enemy is destroyed. We will go over two different implementations and you can choose which one you prefer.
 
 ## Blaster Shoot
-Whenever the player or the enemy shoots, we want to play a sound effect. So, we will go to the "Player" gameobject which has a blaster and add an `AudioSource` component to it. An audio source a component in Unity that is used to play audio clips.
+Whenever the player or the enemy shoots, we want to play a sound effect. So, we will go to the "Player" gameobject which has a blaster, and add an `AudioSource` component to it. An audio source is a component in Unity that is used to play audio clips.
 
-To play an audio clip, we need drag and drop a sound clip from the project window into the `AudioClip` field in the `AudioSource` component. I have added a bunch of sound effects to the starter project, so you can use any of those. For this tutorial, I will be using the `laserSmall_000.ogg` sound effect.
+To play an audio clip, we need to drag and drop a sound clip from the project window into the `AudioClip` field in the `AudioSource` component. I have added a bunch of sound effects to the starter project, so you can use any of those. For this tutorial, I will be using the `laserSmall_000.ogg` sound effect.
 
 Also, we want to make sure that the sound doesn't automatically play when the game starts. In Unity, this option is turned on by default, so we need to uncheck the `Play On Awake` option in the `AudioSource` component.
 
@@ -32,9 +32,9 @@ Now, we can play the sound effect in the `Shoot` method by calling the `Play` me
 ```csharp
 public void Shoot()
 {
-    // ... code to spawn projectile
+    // ... code to spawn a projectile
 
-    // play the projectile fired sound effect
+    // play the projectile-fired sound effect
     if(audioSource) 
     {
         audioSource.Play();
@@ -59,7 +59,7 @@ public void PlayExplosion(Vector3 position)
 }
 ```
 
-We can now specify the explosion sound effect in the inspector and call the `PlayExplosion` function from anywher in our game. I'm going to use the `explosionCrunch_000.ogg` sound effect for this tutorial. Next, we need to modify our `Health` script to play the explosion sound effect when the hp reaches 0.
+We can now specify the explosion sound effect in the inspector and call the `PlayExplosion` function from anywhere in our game. I'm going to use the `explosionCrunch_000.ogg` sound effect for this tutorial. Next, we need to modify our `Health` script to play the explosion sound effect when the hp reaches 0.
 
 ```csharp
 // ... code to check if hp is 0
@@ -75,7 +75,7 @@ if(hp <= 0)
 
 Test it out by playing the game and shooting the enemy. You should hear a sound effect when the enemy is destroyed. This is a simple implementation of the `AudioManager` that can be expanded to play other sound effects as well.
 
-Each of the two methods have their own pros and cons. The first method gives the developer more control over the sound effects, but it can be tedious to add an `AudioSource` component to every gameobject that needs to play a sound effect and configure the properties. The second method is more convenient, but it is less flexible and doesn't give the developer as much control over the sound effects. The most control you get is the position of the sound effect and the volume of the sound effect. So, it's up to you to decide which method you prefer.
+Each of the two methods has its own pros and cons. The first method gives the developer more control over the sound effects, but it can be tedious to add an `AudioSource` component to every gameobject that needs to play a sound effect and configure the properties. The second method is more convenient, but it is less flexible and doesn't give the developer as much control over the sound effects. The most control you get is the position of the sound effect and the volume of the sound effect. So, it's up to you to decide which method you prefer.
 
 ## Final Scripts
 Here are the final scripts for this tutorial for reference:
@@ -90,14 +90,14 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-	[Tooltip("A reference to the explosion sound effect")]
-	[SerializeField] AudioClip ExplosionSound;
+    [Tooltip("A reference to the explosion sound effect")]
+    [SerializeField] AudioClip ExplosionSound;
 
-	// Play an explosion sound effect at the given point
-	public void PlayExplosion(Vector3 position)
-	{
-		AudioSource.PlayClipAtPoint(ExplosionSound, position);
-	}	
+    // Play an explosion sound effect at the given point
+    public void PlayExplosion(Vector3 position)
+    {
+        AudioSource.PlayClipAtPoint(ExplosionSound, position);
+    }   
 }
 ```
 
@@ -111,34 +111,34 @@ using UnityEngine;
 
 public class Blaster : MonoBehaviour
 {
-	[Tooltip("Additional offset from the source transform from where the projectile is spawned")]
-	[SerializeField] protected Vector2 Offset;
+    [Tooltip("Additional offset from the source transform from where the projectile is spawned")]
+    [SerializeField] protected Vector2 Offset;
 
-	[Tooltip("A reference to the projectile prefab that will be used to instantiate projectiles")]
-	[SerializeField] protected GameObject ProjectilePrefab;
+    [Tooltip("A reference to the projectile prefab that will be used to instantiate projectiles")]
+    [SerializeField] protected GameObject ProjectilePrefab;
 
-	[Tooltip("The audio source that can play the projectile fire audio")]
-	protected AudioSource audioSource = null;
+    [Tooltip("The audio source that can play the projectile fire audio")]
+    protected AudioSource audioSource = null;
 
-	void Start()
-	{
-		audioSource = GetComponent<AudioSource>();
-	}
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
-	// Shoot a projectile from the blaster position
-	public void Shoot()
-	{
-		// apply an offset along the direction at which the blaster is looking at,
-		// then spawn a projectile from that position with the current rotation of the blaster
-		var pos = transform.position + Offset.x * transform.right + Offset.y * transform.up;
-		Instantiate(ProjectilePrefab, pos, transform.rotation);
+    // Shoot a projectile from the blaster position
+    public void Shoot()
+    {
+        // apply an offset along the direction in which the blaster is looking,
+        // then spawn a projectile from that position with the current rotation of the blaster
+        var pos = transform.position + Offset.x * transform.right + Offset.y * transform.up;
+        Instantiate(ProjectilePrefab, pos, transform.rotation);
 
-		// play the projectile fire audio
-		if(audioSource)
-		{
-			audioSource.Play();
-		}
-	}
+        // play the projectile fire audio
+        if(audioSource)
+        {
+            audioSource.Play();
+        }
+    }
 }
 ```
 
@@ -153,37 +153,37 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-	[SerializeField] protected int hp = 1;
+    [SerializeField] protected int hp = 1;
 
-	// Apply damage to the object
-	public void ApplyDamage(int damage)
-	{
-		hp -= damage;
+    // Apply damage to the object
+    public void ApplyDamage(int damage)
+    {
+        hp -= damage;
 
-		// if the health drops below zero destroy the object
-		if (hp <= 0)
-		{
-			// play the explosion sound effect before destroying the object
-			var audioManager = FindObjectOfType<AudioManager>();
-			audioManager?.PlayExplosion(transform.position);
+        // if the health drops below zero destroy the object
+        if (hp <= 0)
+        {
+            // play the explosion sound effect before destroying the object
+            var audioManager = FindObjectOfType<AudioManager>();
+            audioManager?.PlayExplosion(transform.position);
 
-			// destroy the object
-			Destroy(gameObject);
-		}
-	}
+            // destroy the object
+            Destroy(gameObject);
+        }
+    }
 
-	// Apply heals to the object
-	public void ApplyHeals(int heals)
-	{
-		// basically reverse damage
-		ApplyDamage(-heals);
-	}
+    // Apply heals to the object
+    public void ApplyHeals(int heals)
+    {
+        // basically reverse the damage
+        ApplyDamage(-heals);
+    }
 
-	// Get the health from the health component
-	public int GetHP() 
-	{
-		return hp;
-	}
+    // Get the health from the health component
+    public int GetHP() 
+    {
+        return hp;
+    }
 }
 ```
 

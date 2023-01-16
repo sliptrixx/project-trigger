@@ -6,7 +6,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # Tutorial: Scores
-In this tutorial we go over how to add a score system to our game and display it on the screen. We will also learn how to save the high score to persistent memory so that it is not lost when the game is closed.
+In this tutorial, we go over how to add a score system to our game and display it on the screen. We will also learn how to save the high score to persistent memory so that it is not lost when the game is closed.
 
 ## Scores
 To keep track of the score and manage how the player earns points, we will create a new script called `ScoreManager.cs` and attach it to the `GameManager` GameObject. The logic I'm going to use is pretty simple. Every time the player eliminates an enemy, we will add 50 points to the score. We will also add a bonus score when the player clears a stage based on how long it took for them to complete the stage.
@@ -25,7 +25,7 @@ public void AddScore(float scoreToAdd)
 ```
 
 ### Bonus Score on Stage Clear
-The player gets a bonus score which is based on how long it takes for the player to clear the stage. The faster the player clears the stage, the more points they get. So, the player has 30 seconds to clear the stage and from there on and they have 1000 points to earn. But every second, the player losses 33 points.
+The player gets a bonus score which is based on how long it takes for the player to clear the stage. The faster the player clears the stage, the more points they get. So, the player has 30 seconds to clear the stage, and from there on and they have 1000 points to earn. But every second, the player losses 33 points.
 
 ```csharp
 [SerializeField] protected float bonusToGive = 1000;
@@ -92,10 +92,10 @@ We will add a function called `CheckAndUpdateHighscore` to check if the current 
 ```csharp
 public void CheckAndUpdateHighscore()
 {
-    // Get the highscore from the player prefs
+    // Get the high score from the player prefs
     int highscore = PlayerPrefs.GetInt("highscore", 0);
 
-    // if the current score is greater that the high score, update it on the UI
+    // if the current score is greater than the high score, update it on the UI
     if(score > highscore)
     {
         PlayerPrefs.SetInt("highscore", Mathf.CeilToInt(score));
@@ -118,74 +118,74 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-	[Tooltip("The bonus to give per stage")]
-	[SerializeField] protected float bonusToGive = 1000;
+    [Tooltip("The bonus to give per stage")]
+    [SerializeField] protected float bonusToGive = 1000;
 
-	[Tooltip("Time to complete the stage to recieve at least some bonus points")]
-	[SerializeField] protected float timeToComplete = 30;
+    [Tooltip("Time to complete the stage to recieve at least some bonus points")]
+    [SerializeField] protected float timeToComplete = 30;
 
-	protected float score = 0;
-	protected float bonus = 0;
+    protected float score = 0;
+    protected float bonus = 0;
 
-	protected UIManager uiManager = null;
+    protected UIManager uiManager = null;
 
-	void Start()
-	{
-		uiManager = GetComponent<UIManager>();
-	}
+    void Start()
+    {
+        uiManager = GetComponent<UIManager>();
+    }
 
-	void Update()
-	{
-		if(bonusToGive > 0)
-		{
-			// decrement the bonus based on time elapsed
-			bonus -= (bonusToGive / timeToComplete) * Time.deltaTime;
-			
-			// floor the bonus to 0
-			if (bonus < 0) { bonus = 0; }
-		}
-	}
+    void Update()
+    {
+        if(bonusToGive > 0)
+        {
+            // decrement the bonus based on time elapsed
+            bonus -= (bonusToGive / timeToComplete) * Time.deltaTime;
+            
+            // floor the bonus to 0
+            if (bonus < 0) { bonus = 0; }
+        }
+    }
 
-	// Add the given score to the whole thing
-	public void AddScore(float scoreToAdd)
-	{
-		score += scoreToAdd;
-		uiManager.SetScore(Mathf.CeilToInt(score), Mathf.CeilToInt(scoreToAdd));
-	}
+    // Add the given score to the whole thing
+    public void AddScore(float scoreToAdd)
+    {
+        score += scoreToAdd;
+        uiManager.SetScore(Mathf.CeilToInt(score), Mathf.CeilToInt(scoreToAdd));
+    }
 
-	// Indicate to the score manager, that the game switched to a new stage
-	public void IndicateNewStage()
-	{
-		// add the collected bonus
-		score += bonus;
+    // Indicate to the score manager, that the game switched to a new stage
+    public void IndicateNewStage()
+    {
+        // add the collected bonus
+        score += bonus;
 
-		// update the bonus score UI, if the player has a bonus
-		if(bonus > 0)
-		{
-			uiManager.SetScore(Mathf.FloorToInt(score), Mathf.FloorToInt(bonus));
-		}
+        // update the bonus score UI, if the player has a bonus
+        if(bonus > 0)
+        {
+            uiManager.SetScore(Mathf.FloorToInt(score), Mathf.FloorToInt(bonus));
+        }
 
-		// reset the score
-		bonus = bonusToGive;
-	}
+        // reset the score
+        bonus = bonusToGive;
+    }
 
-	// Update the highscore information
-	public void CheckAndUpdateHighscore()
-	{
-		// Get the highscore from the player prefs
-		int highscore = PlayerPrefs.GetInt("highscore", 0);
+    // Update the high score information
+    public void CheckAndUpdateHighscore()
+    {
+        // Get the high score from the player prefs
+        int highscore = PlayerPrefs.GetInt("highscore", 0);
 
-		// if the current score is greater that the high score, update it on the UI
-		if(score > highscore)
-		{
-			PlayerPrefs.SetInt("highscore", Mathf.CeilToInt(score));
-			uiManager?.ReportHighscore(Mathf.CeilToInt(score), isNew: true);
-			return;
-		}
+        // if the current score is greater than the high score, update it on the UI
+        if(score > highscore)
+        {
+            PlayerPrefs.SetInt("highscore", Mathf.CeilToInt(score));
+            uiManager?.ReportHighscore(Mathf.CeilToInt(score), isNew: true);
+            return;
+        }
 
-		// not a new highscore, but we still have to report it to the UIManager
-		uiManager?.ReportHighscore(highscore, isNew: false);
-	}
+        // not a new high score, but we still have to report it to the UIManager
+        uiManager?.ReportHighscore(highscore, isNew: false);
+    }
 }
 ```
 
@@ -200,93 +200,93 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-	[Tooltip("The health component to track")]
-	public Health HealthToTrack;
+    [Tooltip("The health component to track")]
+    public Health HealthToTrack;
 
-	[Header("UI Elements")]
-	[Tooltip("The UI text that displays the health element being tracked")]
-	[SerializeField] TMP_Text HealthUI;
+    [Header("UI Elements")]
+    [Tooltip("The UI text that displays the health element being tracked")]
+    [SerializeField] TMP_Text HealthUI;
 
-	[Tooltip("The UI text that displays the current stage the player is playing")]
-	[SerializeField] TMP_Text StageUI;
+    [Tooltip("The UI text that displays the current stage the player is playing")]
+    [SerializeField] TMP_Text StageUI;
 
-	[Tooltip("The UI text that displays the score")]
-	[SerializeField] TMP_Text ScoreUI;
+    [Tooltip("The UI text that displays the score")]
+    [SerializeField] TMP_Text ScoreUI;
 
-	[Tooltip("The UI text that displays the highscore")]
-	[SerializeField] TMP_Text[] HighscoreUIs;
+    [Tooltip("The UI text that displays the highscore")]
+    [SerializeField] TMP_Text[] HighscoreUIs;
 
-	[Tooltip("The game over UI element that appears when the player dies")]
-	[SerializeField] GameObject GameOverScreen;
+    [Tooltip("The game over UI element that appears when the player dies")]
+    [SerializeField] GameObject GameOverScreen;
 
-	[Tooltip("The game complete UI element that appears when the player completes all stages")]
-	[SerializeField] GameObject GameCompleteScreen;
+    [Tooltip("The game complete UI element that appears when the player completes all stages")]
+    [SerializeField] GameObject GameCompleteScreen;
 
-	// time to show the stage UI
-	float stageUITimer = 0;
+    // time to show the stage UI
+    float stageUITimer = 0;
 
-	void Update()
-	{
-		// we can definitely improve the efficiency using OnHealthChange event,
-		// however, i'm going to keep it pretty simple
+    void Update()
+    {
+        // we can definitely improve the efficiency using the OnHealthChange event,
+        // however, I'm going to keep it pretty simple
 
-		// every tick we update the health UI.
-		var hp = HealthToTrack ? HealthToTrack.GetHP() : 0;
-		HealthUI.text = $"Health: {hp}";
+        // every tick we update the health UI.
+        var hp = HealthToTrack ? HealthToTrack.GetHP() : 0;
+        HealthUI.text = $"Health: {hp}";
 
-		// tick down the stage UI timer
-		stageUITimer -= Time.deltaTime;
+        // tick down the stage UI timer
+        stageUITimer -= Time.deltaTime;
 
-		// once the stage timer has elapsed and the stage UI is visible,
-		// set the UI inactive
-		if(stageUITimer <= 0 && StageUI.gameObject.activeSelf)
-		{
-			StageUI.gameObject.SetActive(false);
-		}
-	}
+        // once the stage timer has elapsed and the stage UI is visible,
+        // set the UI inactive
+        if(stageUITimer <= 0 && StageUI.gameObject.activeSelf)
+        {
+            StageUI.gameObject.SetActive(false);
+        }
+    }
 
-	// Request the UI manager to show the stage number as UI for the requested time
-	public void RequestStageUI(int stagenumber, float time)
-	{
-		StageUI.text = $"Stage {stagenumber}";
-		StageUI.gameObject.SetActive(true);
-		stageUITimer = time;
-	}
+    // Request the UI manager to show the stage number as UI for the requested time
+    public void RequestStageUI(int stagenumber, float time)
+    {
+        StageUI.text = $"Stage {stagenumber}";
+        StageUI.gameObject.SetActive(true);
+        stageUITimer = time;
+    }
 
-	// Open the game over Menu
-	public void OpenGameOverMenu()
-	{
-		GameOverScreen.SetActive(true);
-	}
+    // Open the game over Menu
+    public void OpenGameOverMenu()
+    {
+        GameOverScreen.SetActive(true);
+    }
 
-	// Open the game complete menu
-	public void OpenGameCompleteMenu()
-	{
-		GameCompleteScreen.SetActive(true);
-	}
+    // Open the game complete menu
+    public void OpenGameCompleteMenu()
+    {
+        GameCompleteScreen.SetActive(true);
+    }
 
-	// Set the score with an optional score that was added
-	public void SetScore(int newScore, int? scoreAdded = null)
-	{
-		ScoreUI.text = $"Score: {newScore}";
-	}
+    // Set the score with an optional score that was added
+    public void SetScore(int newScore, int? scoreAdded = null)
+    {
+        ScoreUI.text = $"Score: {newScore}";
+    }
 
-	public void ReportHighscore(int highscore, bool isNew)
-	{
-		// Build the highscore string
-		string text = "";
-		if(isNew)
-		{
-			text += "New Highscore!!!\n";
-		}
-		text += $"Highscore: {highscore}";
+    public void ReportHighscore(int highscore, bool isNew)
+    {
+        // Build the high score string
+        string text = "";
+        if(isNew)
+        {
+            text += "New Highscore!!!\n";
+        }
+        text += $"Highscore: {highscore}";
 
-		// Set the high score in all highscore ui elements
-		foreach(var highscoreUI in HighscoreUIs)
-		{
-			highscoreUI.text = text;
-		}
-	}
+        // Set the high score in all high score UI elements
+        foreach(var highscoreUI in HighscoreUIs)
+        {
+            highscoreUI.text = text;
+        }
+    }
 }
 ```
 
@@ -300,66 +300,66 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Script responsible for adding new enemies from the next stage to the current scene once player has
+// Script responsible for adding new enemies from the next stage to the current scene once the player has
 // cleared all enemies in the current stage
 public class StageManager : MonoBehaviour
 {
-	[SerializeField] List<string> scenes;
+    [SerializeField] List<string> scenes;
 
-	int currentSceneID = 0;
-	int enemiesLeft = 0;
+    int currentSceneID = 0;
+    int enemiesLeft = 0;
 
-	void Update()
-	{
-		// if there are no enemies left on the scene and there are scenes left to load,
-		// then we load the next enemy level
-		if(enemiesLeft == 0)
-		{
-			enemiesLeft = -1;
-			if(currentSceneID < scenes.Count)
-			{
-				LoadEnemyScene(scenes[currentSceneID]);
-			}
-			currentSceneID++;
+    void Update()
+    {
+        // if there are no enemies left on the scene and there are scenes left to load,
+        // then we load the next enemy level
+        if(enemiesLeft == 0)
+        {
+            enemiesLeft = -1;
+            if(currentSceneID < scenes.Count)
+            {
+                LoadEnemyScene(scenes[currentSceneID]);
+            }
+            currentSceneID++;
 
-			// Let the score manager to give the bonus for the current stage
-			var scoreManager = GetComponent<ScoreManager>();
-			scoreManager?.IndicateNewStage();
+            // Let the score manager to give the bonus for the current stage
+            var scoreManager = GetComponent<ScoreManager>();
+            scoreManager?.IndicateNewStage();
 
-			// Request the UI manager to show the stage text UI
-			var uiManager = GetComponent<UIManager>();
-			if (currentSceneID <= scenes.Count)
-			{
-				uiManager?.RequestStageUI(currentSceneID, 3.0f);
-			}
-			else
-			{
-				scoreManager?.CheckAndUpdateHighscore();
-				uiManager?.OpenGameCompleteMenu();
-			}
-		}
-	}
+            // Request the UI manager to show the stage text UI
+            var uiManager = GetComponent<UIManager>();
+            if (currentSceneID <= scenes.Count)
+            {
+                uiManager?.RequestStageUI(currentSceneID, 3.0f);
+            }
+            else
+            {
+                scoreManager?.CheckAndUpdateHighscore();
+                uiManager?.OpenGameCompleteMenu();
+            }
+        }
+    }
 
-	void LoadEnemyScene(string scenename)
-	{
-		var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
-		asyncLoad.completed += (AsyncOperation op) => 
-		{
-			enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
-		};
-	}
+    void LoadEnemyScene(string scenename)
+    {
+        var asyncLoad = SceneManager.LoadSceneAsync(scenename, LoadSceneMode.Additive);
+        asyncLoad.completed += (AsyncOperation op) => 
+        {
+            enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
+        };
+    }
 
-	// Report to the stage manager that an enemy was killed
-	public void ReportEnemyDeath()
-	{
-		enemiesLeft--;
-	}
+    // Report to the stage manager that an enemy was killed
+    public void ReportEnemyDeath()
+    {
+        enemiesLeft--;
+    }
 
-	// Restart the game
-	public void Restart()
-	{
-		SceneManager.LoadScene("CoreGameplay");
-	}
+    // Restart the game
+    public void Restart()
+    {
+        SceneManager.LoadScene("CoreGameplay");
+    }
 }
 ```
 
@@ -373,42 +373,42 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
-	[Tooltip("The speed at which the player ship moves")]
-	public float Speed = 3;
+    [Tooltip("The speed at which the player ship moves")]
+    public float Speed = 3;
 
-	private Blaster blaster;
+    private Blaster blaster;
 
-	private void Start()
-	{
-		blaster = GetComponent<Blaster>();
-	}
+    private void Start()
+    {
+        blaster = GetComponent<Blaster>();
+    }
 
-	void Update()
-	{
-		if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-		{
-			transform.position += Vector3.right * Speed * Time.deltaTime;
-		}
+    void Update()
+    {
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.position += Vector3.right * Speed * Time.deltaTime;
+        }
 
-		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-		{
-			transform.position -= Vector3.right * Speed * Time.deltaTime;
-		}
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.position -= Vector3.right * Speed * Time.deltaTime;
+        }
 
-		if(Input.GetMouseButtonDown(0))
-		{
-			blaster.Shoot();
-		}
-	}
+        if(Input.GetMouseButtonDown(0))
+        {
+            blaster.Shoot();
+        }
+    }
 
-	private void OnDestroy()
-	{
-		var uiManager = FindObjectOfType<UIManager>();
-		var scoreManager = FindObjectOfType<ScoreManager>();
+    private void OnDestroy()
+    {
+        var uiManager = FindObjectOfType<UIManager>();
+        var scoreManager = FindObjectOfType<ScoreManager>();
 
-		scoreManager?.CheckAndUpdateHighscore();
-		uiManager?.OpenGameOverMenu();
-	}
+        scoreManager?.CheckAndUpdateHighscore();
+        uiManager?.OpenGameOverMenu();
+    }
 }
 ```
 
@@ -421,79 +421,79 @@ using UnityEngine;
 [RequireComponent(typeof(Blaster))]
 public class EnemyAI : MonoBehaviour
 {
-	[Tooltip("How frequently should the enemy fire a projectile (given in seconds)")]
-	[SerializeField] protected float fireRate = 1;
+    [Tooltip("How frequently should the enemy fire a projectile (given in seconds)")]
+    [SerializeField] protected float fireRate = 1;
 
-	[Tooltip("How much time to wait before firing")]
-	[SerializeField] protected float startWaitTime = 0;
+    [Tooltip("How much time to wait before firing")]
+    [SerializeField] protected float startWaitTime = 0;
 
-	[Header("Simple movement")]
-	[Tooltip("How fast should the enemy travel in terms units/seconds")]
-	[SerializeField] protected float moveSpeed = 1;
+    [Header("Simple movement")]
+    [Tooltip("How fast should the enemy travel in terms units/seconds")]
+    [SerializeField] protected float moveSpeed = 1;
 
-	[Tooltip("How far should the the enemy move")]
-	[SerializeField] protected float WiggleRoom = 1;
+    [Tooltip("How far should the the enemy move")]
+    [SerializeField] protected float WiggleRoom = 1;
 
-	[Tooltip("The direction in which the enemy AI should currently move")]
-	[SerializeField] protected bool MoveRight = true;
+    [Tooltip("The direction in which the enemy AI should currently move")]
+    [SerializeField] protected bool MoveRight = true;
 
-	// A private reference to the blaster that the enemy can shoot from
-	protected Blaster blaster;
+    // A private reference to the blaster that the enemy can shoot from
+    protected Blaster blaster;
 
-	// this variable is used to track how many seconds have elapsed since last fired
-	protected float fireTimer = 0;
+    // this variable is used to track how many seconds have elapsed since last fired
+    protected float fireTimer = 0;
 
-	// the position that anchor's the enemy
-	protected Vector3 anchor;
+    // the position that anchor's the enemy
+    protected Vector3 anchor;
 
-	void Start()
-	{
-		// since we are using the RequireComponent attribute, we are guaranteed to have a blaster
-		blaster = GetComponent<Blaster>();
+    void Start()
+    {
+        // since we are using the RequireComponent attribute, we are guaranteed to have a blaster
+        blaster = GetComponent<Blaster>();
 
-		// set the anchor position so that the enemy can move left and right relative to it
-		anchor = transform.position;
-	}
+        // set the anchor position so that the enemy can move left and right relative to it
+        anchor = transform.position;
+    }
 
-	void Update()
-	{
-		// elapse the start wait time if it hasn't elapsed
-		if(startWaitTime > 0)
-		{
-			startWaitTime -= Time.deltaTime;
-		}
+    void Update()
+    {
+        // elapse the start wait time if it hasn't elapsed
+        if(startWaitTime > 0)
+        {
+            startWaitTime -= Time.deltaTime;
+        }
 
-		// increment the timer
-		fireTimer += Time.deltaTime;
+        // increment the timer
+        fireTimer += Time.deltaTime;
 
-		// if the timer has elapsed, shoot from the blaster and reset the timer
-		if(fireTimer >= fireRate && startWaitTime <= 0)
-		{
-			blaster.Shoot();
-			fireTimer = 0;
-		}
+        // if the timer has elapsed, shoot from the blaster and reset the timer
+        if(fireTimer >= fireRate && startWaitTime <= 0)
+        {
+            blaster.Shoot();
+            fireTimer = 0;
+        }
 
-		// move the player in the expected direction
-		Vector3 move = MoveRight ? transform.right : -transform.right;
-		transform.position += move * Time.deltaTime * moveSpeed;
+        // move the player in the expected direction
+        Vector3 move = MoveRight ? transform.right : -transform.right;
+        transform.position += move * Time.deltaTime * moveSpeed;
 
-		// do the check to toggle the direction once they have travelled pass the bounds
-		if (Vector3.Distance(anchor, transform.position) > WiggleRoom / 2)
-		{
-			MoveRight = !MoveRight;
-		}
-	}
+        // do the check to toggle the direction once they have travelled pass the bounds
+        if (Vector3.Distance(anchor, transform.position) > WiggleRoom / 2)
+        {
+            MoveRight = !MoveRight;
+        }
+    }
 
-	void OnDestroy()
-	{
-		// get a reference to the stage manager and report that this enemy was destroyed
-		var stageManger = FindObjectOfType<StageManager>();
-		stageManger?.ReportEnemyDeath();
+    void OnDestroy()
+    {
+        // get a reference to the stage manager and report that this enemy was destroyed
+        var stageManger = FindObjectOfType<StageManager>();
+        stageManger?.ReportEnemyDeath();
 
-		// get a reference to the score manager and give the player a score of +50
-		var scoreManager = FindObjectOfType<ScoreManager>();
-		scoreManager?.AddScore(50);
-	}
+        // get a reference to the score manager and give the player a score of +50
+        var scoreManager = FindObjectOfType<ScoreManager>();
+        scoreManager?.AddScore(50);
+    }
 }
 ```
 
