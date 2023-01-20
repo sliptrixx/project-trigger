@@ -79,6 +79,12 @@ public class Health : MonoBehaviour
         // basically reverse the damage
         ApplyDamage(-heals);
     }
+
+    // Get the health from the health component
+    public int GetHP() 
+    {
+        return hp;
+    }
 }
 ```
 
