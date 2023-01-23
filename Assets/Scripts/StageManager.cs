@@ -13,6 +13,14 @@ public class StageManager : MonoBehaviour
 	int currentSceneID = 0;
 	int enemiesLeft = 0;
 
+	void Start()
+	{
+		// usually this system assumes that all enemies stages are loaded in additively,
+		// however, in case, if some enemies are in the current empty scene, we block
+		// the loading of new stages
+		enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
+	}
+
 	void Update()
 	{
 		// if there are no enemies left on the scene and there are scenes left to load,
