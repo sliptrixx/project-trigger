@@ -318,6 +318,11 @@ public class StageManager : MonoBehaviour
     int currentSceneID = 0;
     int enemiesLeft = 0;
 
+    void Start()
+    {
+        enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
+    }
+
     void Update()
     {
         // if there are no enemies left on the scene and there are scenes left to load,

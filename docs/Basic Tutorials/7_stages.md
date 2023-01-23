@@ -137,6 +137,18 @@ void Update()
 }
 ```
 
+### An edge case
+There is one edge case that we need to handle. What if the designer decides to add an enemy to the default scene manually instead of loading it from an additive scene? We need to account for this and update the enemy count accordingly during the script initialization.
+
+```csharp
+void Start()
+{
+    enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
+}
+```
+
+Now, if the an enemy is added to the scene, it gets accounted for and blocks the stage from switching.
+
 ### Final Script
 Here is the final script for the `StageManager.cs` and `EnemyAI.cs` scripts.
 
@@ -158,6 +170,11 @@ public class StageManager : MonoBehaviour
 
     int currentSceneID = 0;
     int enemiesLeft = 0;
+
+    void Start()
+    {
+        enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
+    }
 
     void Update()
     {
