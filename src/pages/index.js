@@ -21,11 +21,11 @@ function HomepageHeader() {
             📕&nbsp; Tutorial
           </Link>
           <>&nbsp;&nbsp;&nbsp;</>
-          <Link
+          <a
             className="button button--secondary button--lg"
-            to={require("/files/ProjectTrigger-Template.zip").default}>
+            href={require("/files/ProjectTrigger-Template.zip").default}>
             📄&nbsp; Download Template
-          </Link>
+          </a>
         </div>
       </div>
     </header>
