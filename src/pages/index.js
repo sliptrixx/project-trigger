@@ -23,8 +23,8 @@ function HomepageHeader() {
           <>&nbsp;&nbsp;&nbsp;</>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            📘&nbsp; Documentation
+            to={require("/files/ProjectTrigger-Template.zip").default}>
+            📄&nbsp; Download Template
           </Link>
         </div>
       </div>
