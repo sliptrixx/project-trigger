@@ -2,6 +2,9 @@
 sidebar_position: 5
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Tutorial: Health
 In this section, we will go over how we can modify our code and design developer-friendly APIs to make our code more reusable and functional. We will do this by adding a health functionality to our little game using a health component.
 
@@ -53,7 +56,31 @@ public void ApplyHeal(int heals)
 }
 ```
 
-### Final Health.cs
+## Modifying the Projectile Script
+Now that we have a `Health.cs` script, we can modify our `Projectile.cs` script to use the Health component to apply damage instead of directly destroying the GameObject.
+
+```csharp
+void OnTriggerEnter2D(Collider2D other)
+{
+    // get the health component and if it exists apply damage of 1 to it
+    var health = other.GetComponent<Health>();
+    if(health != null) 
+    {
+        health.ApplyDamage(1);
+    }
+
+    Destroy(gameObject);
+}
+```
+### Testing
+Now let's put this all together and test it out. We will first add the Health component to the Meteor GameObjects and set the `hp` field to 3. Run the game and try shooting at the meteors. You should see that the meteors are destroyed after 3 shots. Try modifying the `hp` field and see how it affects the game.
+
+## Final Scripts
+Here are the final scripts for reference.
+
+<Tabs>
+<TabItem value="Health.cs">
+
 ```csharp
 using UnityEngine;
 
@@ -88,24 +115,57 @@ public class Health : MonoBehaviour
 }
 ```
 
-## Modifying the Projectile Script
-Now that we have a `Health.cs` script, we can modify our `Projectile.cs` script to use the Health component to apply damage instead of directly destroying the GameObject.
+</TabItem>
+<TabItem value="Projectile.cs">
 
 ```csharp
-void OnTriggerEnter2D(Collider2D other)
-{
-    // get the health component and if it exists apply damage of 1 to it
-    var health = other.GetComponent<Health>();
-    if(health != null) 
-    {
-        health.ApplyDamage(1);
-    }
+using UnityEngine;
 
-    Destroy(gameObject);
+public class Projectile : MonoBehaviour
+{
+	[Tooltip("The speed at which the projectile travels")]
+	[SerializeField] protected float Speed = 5;
+
+	[Tooltip("The max distance it can travel, before the projectile gets destroyed")]
+	[SerializeField] protected float MaxDistance = 10;
+
+	// how much distance has the projectile travelled?
+	float distanceTravelled = 0;
+
+	// called every frame
+	void Update()
+	{
+		// move it in the direction the object is looking at factored by speed
+		transform.position += transform.up * (Speed * Time.deltaTime);
+		
+		// increment the variable tracking the total distance travelled by the projectile,
+		// then check if it has travelled past the max distance
+		distanceTravelled += Speed * Time.deltaTime;
+		if(distanceTravelled >= MaxDistance)
+		{
+			// destroy the projectile if it has travelled more than the max distance
+			Destroy(gameObject);
+		}
+
+	}
+
+	// called when the projectile has a collision
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		// get the health component and if it exists apply damage of 1 to it
+		var health = collision.GetComponent<Health>();
+		if(health != null)
+		{
+			health.ApplyDamage(1);
+		}
+
+        Destroy(gameObject); 
+	}
 }
 ```
-### Testing
-Now let's put this all together and test it out. We will first add the Health component to the Meteor GameObjects and set the `hp` field to 3. Run the game and try shooting at the meteors. You should see that the meteors are destroyed after 3 shots. Try modifying the `hp` field and see how it affects the game.
+
+</TabItem>
+</Tabs>
 
 ## Bonus Tips
 - We can add an `IsDead` function to the `Health.cs` script and use it to check if the GameObject is dead or not. This is useful if we want to add an enemy AI that stops shooting at a target that is dead.

@@ -100,7 +100,7 @@ void Update()
     // if there are no enemies left, we can switch to the next stage
     if(enemiesLeft == 0 && currentSceneID < scenes.Count)
     {
-        SceneManager.LoadScene(scenes[currentScenID], LoadSceneMode.Additive);
+        SceneManager.LoadScene(scenes[currentSceneID], LoadSceneMode.Additive);
         enemiesLeft = FindObjectsOfType<EnemyAI>().Length;
         currentSceneID++;
     }
@@ -182,7 +182,7 @@ public class StageManager : MonoBehaviour
         if(enemiesLeft == 0 && currentSceneID < scenes.Count)
         {
             enemiesLeft = -1;
-            LoadEnemyScene(scenes[currentScenID]);
+            LoadEnemyScene(scenes[currentSceneID]);
             currentSceneID++;
         }
     }

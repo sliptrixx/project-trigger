@@ -65,8 +65,6 @@ void OnTriggerEnter2D(Collider2D other)
 
 ### Final Projectile Script
 ```csharp
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
